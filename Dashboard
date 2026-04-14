@@ -30,22 +30,76 @@
   .card { background: #1a2a3a; border: 1px solid #223344; border-radius: 12px; padding: 24px; }
   .card h3 { font-size: 1rem; color: #00b4d8; margin-bottom: 16px; border-bottom: 1px solid #223344; padding-bottom: 10px; }
   .chart-container { position: relative; width: 100%; height: 300px; }
-  
+  .chart-container-lg { position: relative; width: 100%; height: 400px; }
+
   table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-  th { background: #0d1b2a; color: #00b4d8; padding: 10px 12px; text-align: left; position: sticky; top: 0; z-index: 2; }
+  th { background: #0d1b2a; color: #00b4d8; padding: 10px 12px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px; position: sticky; top: 0; z-index: 2; }
   td { padding: 9px 12px; border-bottom: 1px solid #223344; }
   tr:hover { background: rgba(0,180,216,0.05); }
-  
   .status-badge { padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; }
   .status-open { background: rgba(230,57,70,0.2); color: #e63946; }
   .status-progress { background: rgba(255,183,3,0.2); color: #ffb703; }
   .status-closed { background: rgba(46,196,182,0.2); color: #2ec4b6; }
+  .priority-high { color: #e63946; font-weight: 700; }
+  .priority-medium { color: #ffb703; font-weight: 600; }
+  .priority-low { color: #2ec4b6; }
 
-  /* Classifier & Similarity Search */
-  .clf-textarea { width: 100%; background: #0d1b2a; border: 1px solid #334455; color: #e0e0e0; padding: 14px 16px; border-radius: 10px; font-size: 0.95rem; min-height: 80px; }
-  .btn { background: #00b4d8; color: #0f1923; border: none; padding: 11px 28px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-  .sim-complaint-card { background: #0d1b2a; border: 1px solid #223344; border-radius: 10px; padding: 16px; margin-bottom: 12px; cursor: pointer; transition: 0.3s; }
+  /* Classifier */
+  .clf-textarea { width: 100%; background: #0d1b2a; border: 1px solid #334455; color: #e0e0e0; padding: 14px 16px; border-radius: 10px; font-size: 0.95rem; font-family: inherit; resize: vertical; min-height: 80px; }
+  .clf-textarea:focus { outline: none; border-color: #00b4d8; box-shadow: 0 0 0 3px rgba(0,180,216,0.15); }
+  .clf-textarea::placeholder { color: #556677; }
+  .clf-row { display: flex; gap: 16px; margin-top: 16px; align-items: flex-end; flex-wrap: wrap; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.75rem; color: #8899aa; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group select, .form-group input { background: #0d1b2a; border: 1px solid #334455; color: #e0e0e0; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; min-width: 160px; }
+  .btn { background: #00b4d8; color: #0f1923; border: none; padding: 11px 28px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.88rem; transition: all 0.3s; }
+  .btn:hover { background: #0096c7; transform: translateY(-1px); }
+  .btn-secondary { background: #223344; color: #00b4d8; }
+  .btn-secondary:hover { background: #2a4055; }
+
+  .result-box { background: #0d1b2a; border: 1px solid #00b4d8; border-radius: 12px; padding: 24px; margin-top: 20px; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .result-box h4 { color: #00b4d8; margin-bottom: 12px; font-size: 0.95rem; }
+  .result-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #1a2a3a; }
+  .result-row:last-child { border-bottom: none; }
+  .result-label { color: #8899aa; font-size: 0.82rem; }
+  .result-value { font-weight: 600; font-size: 0.88rem; }
+  .confidence-bar { height: 8px; border-radius: 4px; background: #223344; width: 140px; overflow: hidden; display: inline-block; vertical-align: middle; margin-left: 10px; }
+  .confidence-fill { height: 100%; border-radius: 4px; }
+  .fill-high { background: linear-gradient(90deg, #e63946, #ff6b6b); }
+  .fill-med { background: linear-gradient(90deg, #ffb703, #ffd166); }
+  .fill-low { background: linear-gradient(90deg, #2ec4b6, #72efdd); }
+  .fill-blue { background: linear-gradient(90deg, #00b4d8, #48bfe3); }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; margin: 2px 4px 2px 0; }
+  .tag-type { background: rgba(0,180,216,0.15); color: #00b4d8; }
+  .tag-keyword { background: rgba(131,56,236,0.15); color: #8338ec; }
+
+  /* Similarity */
+  .sim-complaint-card { background: #0d1b2a; border: 1px solid #223344; border-radius: 10px; padding: 16px; margin-bottom: 12px; cursor: pointer; transition: all 0.3s; }
   .sim-complaint-card:hover { border-color: #00b4d8; transform: translateX(4px); }
+  .sim-complaint-card.selected { border-color: #00b4d8; background: rgba(0,180,216,0.05); }
+  .sim-score { font-size: 1.1rem; font-weight: 700; color: #00b4d8; }
+  .sim-meta { font-size: 0.78rem; color: #8899aa; margin-top: 4px; }
+  .sim-desc { font-size: 0.85rem; margin-top: 6px; }
+
+  .search-box { display: flex; gap: 12px; margin-bottom: 20px; }
+  .search-input { flex: 1; background: #0d1b2a; border: 1px solid #334455; color: #e0e0e0; padding: 12px 16px; border-radius: 10px; font-size: 0.9rem; font-family: inherit; }
+  .search-input:focus { outline: none; border-color: #00b4d8; }
+
+  .filter-bar { display: flex; gap: 16px; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+  .filter-bar select { background: #0d1b2a; border: 1px solid #334455; color: #e0e0e0; padding: 8px 14px; border-radius: 8px; font-size: 0.82rem; }
+  .filter-bar label { font-size: 0.75rem; color: #8899aa; }
+
+  .vendor-rec { background: #162232; border: 1px solid #223344; border-radius: 10px; padding: 14px; margin-top: 8px; display: flex; justify-content: space-between; align-items: center; }
+  .vendor-rec .vname { font-weight: 600; color: #e0e0e0; }
+  .vendor-rec .vdetail { font-size: 0.78rem; color: #8899aa; }
+
+  @media (max-width: 900px) {
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .clf-row { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
@@ -66,17 +120,738 @@
   <div class="tab" onclick="switchTab('calls', this)">📋 All Calls</div>
 </div>
 
+<!-- ==================== OVERVIEW TAB ==================== -->
+<div class="dashboard active" id="tab-overview">
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="value" id="kpi-total">—</div><div class="label">Total Complaints</div><div class="change up">↑ 12% vs last month</div></div>
+    <div class="kpi-card"><div class="value" id="kpi-open">—</div><div class="label">Open</div><div class="change up">↑ 8%</div></div>
+    <div class="kpi-card"><div class="value" id="kpi-progress">—</div><div class="label">In Progress</div><div class="change down">↓ 3%</div></div>
+    <div class="kpi-card"><div class="value" id="kpi-closed">—</div><div class="label">Closed</div><div class="change down">↓ 5% avg resolution</div></div>
+    <div class="kpi-card"><div class="value" id="kpi-avgres">—</div><div class="label">Avg Resolution (days)</div><div class="change down">↓ 0.8 days</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>Complaints by Type</h3><div class="chart-container"><canvas id="chartType"></canvas></div></div>
+    <div class="card"><h3>Complaints by Priority</h3><div class="chart-container"><canvas id="chartPriority"></canvas></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>Monthly Trend (2025–2026)</h3><div class="chart-container"><canvas id="chartTrend"></canvas></div></div>
+    <div class="card"><h3>Complaints by Zip Code</h3><div class="chart-container"><canvas id="chartZip"></canvas></div></div>
+  </div>
+  <div class="card">
+    <h3>Top 10 Vendors by Assigned Calls</h3>
+    <div class="chart-container-lg"><canvas id="chartVendorBar"></canvas></div>
+  </div>
+</div>
+
+<!-- ==================== CLASSIFIER TAB ==================== -->
+<div class="dashboard" id="tab-classifier">
+  <div class="card">
+    <h3>🏷️ Describe Your Complaint</h3>
+    <p style="color:#8899aa;font-size:0.85rem;margin-bottom:16px;">Type a natural language description of the street lamp issue. The classifier will analyze your text and determine the complaint type, priority, urgency, and recommend the best vendor.</p>
+    <textarea class="clf-textarea" id="clfInput" placeholder="Example: The street lamp on my block has been flickering for the past 3 nights. It goes on and off every few seconds and it's really dark and unsafe for pedestrians walking at night..."></textarea>
+    <div class="clf-row">
+      <div class="form-group">
+        <label>Zip Code (optional)</label>
+        <select id="clf-zip">
+          <option value="">Auto-detect</option>
+          <option value="10301">10301</option><option value="10302">10302</option><option value="10303">10303</option>
+          <option value="10304">10304</option><option value="10305">10305</option><option value="10306">10306</option>
+          <option value="10307">10307</option><option value="10308">10308</option><option value="10309">10309</option>
+          <option value="10310">10310</option><option value="10312">10312</option><option value="10314">10314</option>
+        </select>
+      </div>
+      <button class="btn" onclick="runClassifier()">🔍 Classify Complaint</button>
+      <button class="btn btn-secondary" onclick="loadExample()">💡 Load Example</button>
+    </div>
+    <div id="classifier-result"></div>
+  </div>
+  <div class="grid-2" style="margin-top:24px;">
+    <div class="card">
+      <h3>Classification Distribution</h3>
+      <div class="chart-container"><canvas id="chartClassDist"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Priority by Complaint Type</h3>
+      <div class="chart-container"><canvas id="chartPriorityType"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SIMILARITY SEARCH TAB ==================== -->
+<div class="dashboard" id="tab-similarity">
+  <div class="card">
+    <h3>🔍 Complaint Similarity Search</h3>
+    <p style="color:#8899aa;font-size:0.85rem;margin-bottom:16px;">Select a complaint from the table or search by ID, then find the most similar complaints based on type, location, priority, time, and description keywords.</p>
+    <div class="search-box">
+      <input class="search-input" id="simSearchInput" placeholder="Search by Complaint ID (e.g. SI-100042) or type keywords..." />
+      <button class="btn" onclick="searchComplaint()">Search</button>
+    </div>
+    <div class="clf-row" style="margin-top:0;margin-bottom:16px;">
+      <div class="form-group">
+        <label>Or pick a random complaint</label>
+        <button class="btn btn-secondary" onclick="pickRandom()">🎲 Random Complaint</button>
+      </div>
+      <div class="form-group">
+        <label>Similarity Weights</label>
+        <select id="simWeightMode" onchange="rerunSimilarity()">
+          <option value="balanced">Balanced</option>
+          <option value="location">Location-Heavy</option>
+          <option value="type">Type-Heavy</option>
+          <option value="time">Time-Heavy</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Results</label>
+        <select id="simCount" onchange="rerunSimilarity()">
+          <option value="10">Top 10</option>
+          <option value="20">Top 20</option>
+          <option value="50">Top 50</option>
+        </select>
+      </div>
+    </div>
+    <div id="simSourceCard"></div>
+    <div id="simResults"></div>
+  </div>
+  <div class="grid-2" style="margin-top:24px;">
+    <div class="card">
+      <h3>Similarity Score Distribution</h3>
+      <div class="chart-container"><canvas id="chartSimDist"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Similar Complaints by Zip Code</h3>
+      <div class="chart-container"><canvas id="chartSimZip"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== VENDORS TAB ==================== -->
+<div class="dashboard" id="tab-vendors">
+  <div class="card">
+    <h3>🏢 Staten Island Licensed Electricians — Real Vendor Data</h3>
+    <div style="overflow-x:auto;max-height:700px;overflow-y:auto;">
+    <table>
+      <thead><tr><th>License #</th><th>Name</th><th>Business Name</th><th>Address</th><th>Zip</th><th>Phone</th><th>Assigned Calls</th><th>Avg Resolution</th><th>Top Complaint Type</th></tr></thead>
+      <tbody id="vendorTableBody"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ALL CALLS TAB ==================== -->
+<div class="dashboard" id="tab-calls">
+  <div class="filter-bar">
+    <label>Status:</label>
+    <select id="filterStatus" onchange="filterCalls()"><option value="all">All</option><option value="Open">Open</option><option value="In Progress">In Progress</option><option value="Closed">Closed</option></select>
+    <label>Priority:</label>
+    <select id="filterPriority" onchange="filterCalls()"><option value="all">All</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+    <label>Type:</label>
+    <select id="filterType" onchange="filterCalls()"><option value="all">All</option></select>
+    <label>Vendor:</label>
+    <select id="filterVendor" onchange="filterCalls()"><option value="all">All Vendors</option></select>
+    <button class="btn btn-secondary" onclick="resetFilters()">Reset</button>
+  </div>
+  <div class="card">
+    <h3>📋 311 Street Lamp Calls (<span id="callCount">0</span> records shown)</h3>
+    <div style="overflow-x:auto;max-height:600px;overflow-y:auto;">
+      <table>
+        <thead><tr><th>ID</th><th>Date</th><th>Type</th><th>Description</th><th>Address</th><th>Zip</th><th>Priority</th><th>Status</th><th>Vendor</th><th>Res. (days)</th><th>Action</th></tr></thead>
+        <tbody id="callsTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <script>
-  // ========== TAB SWITCHING ==========
-  function switchTab(tab, el) {
-    document.querySelectorAll('.dashboard').forEach(d => d.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById('tab-' + tab).classList.add('active');
-    el.classList.add('active');
+// ================================================================
+// REAL VENDOR DATA — from licensed-electricians.pdf (Staten Island)
+// ================================================================
+const vendors = [
+  { license:"12560", name:"Michael Cenza", business:"North Point Elec'l Service Corp", address:"3475 Victory Blvd", zip:"10314", phone:"718-983-1313" },
+  { license:"11286", name:"Michael DiScenza", business:"Sure Elec'l Contr'g Corp.", address:"3836 Richmond Avenue", zip:"10312", phone:"718-227-2889" },
+  { license:"11770", name:"Todd Dobrin", business:"Touchtel Technology Group", address:"1897 Clove Road, 2nd Floor", zip:"10304", phone:"212-809-2101" },
+  { license:"10926", name:"Kenneth Dowling", business:"K.E.D. Elec'l Contr'g Inc", address:"483 Sleight Avenue", zip:"10307", phone:"718-608-2918" },
+  { license:"10693", name:"Steven Duffy", business:"Erin Elec'l Contr'g Inc", address:"17 Rector Street", zip:"10310", phone:"718-720-3200" },
+  { license:"12781", name:"Joseph Falcone", business:"Power Source Elec of NY", address:"516 Industrial Loop Suite 201", zip:"10309", phone:"718-948-0111" },
+  { license:"11901", name:"Paul Sciascia", business:"Sciascia Electrical Corp", address:"201 Arlington Avenue Suite 10", zip:"10303", phone:"718-447-1947" },
+  { license:"12416", name:"Albino Sellitti", business:"A. Sellitti Elec'l Contg", address:"4347 Hylan Blvd", zip:"10312", phone:"718-698-2900" },
+  { license:"13024", name:"Michael Serrano", business:"AJ Electrical Svc", address:"516 Industrial Loop 2nd Floor", zip:"10309", phone:"917-923-5809" },
+  { license:"11251", name:"Jawed Siddiqui", business:"Meco Electric Co. Inc.", address:"56 West Street", zip:"10310", phone:"718-273-3900" },
+  { license:"12378", name:"Joseph Signa", business:"Aquatech Mech, Plbg & Elec", address:"506 Sharrotts Road", zip:"10309", phone:"718-614-8064" },
+  { license:"11399", name:"Jeff Skowronski", business:"Inter Connection Electric", address:"209 Granite Ave", zip:"10303", phone:"718-748-9800" },
+  { license:"13209", name:"Ronald Hazen Jr", business:"Liv-Ron Electl Entrps LLC", address:"3120 Arthur Kill Road", zip:"10309", phone:"917-636-3289" },
+  { license:"12823", name:"Francesco Iacoviello", business:"Iaco-Tech Electric Inc", address:"110 Willow Avenue", zip:"10305", phone:"212-444-8089" },
+  { license:"12964", name:"Demetrios Iliopoulos", business:"Sunbird Electrical Contr", address:"516 Industrial Loop 2nd Floor", zip:"10309", phone:"917-831-6947" },
+  { license:"10675", name:"Carmine Ippolito", business:"Ampco Tech Electric Corp.", address:"5901 Father Capodanno Blvd", zip:"10305", phone:"718-987-3629" },
+  { license:"12815", name:"Craig Johnsen", business:"Johnson Brothers Inc", address:"496 Mosel Avenue", zip:"10304", phone:"718-816-1890" },
+  { license:"12601", name:"Nikolaos Kalyvas", business:"Mack Electrical Inc", address:"516 Industrial Loop Suite 203", zip:"10309", phone:"718-758-3500" },
+  { license:"11444", name:"Steven Farkas", business:"Steven Farkas", address:"42 Richmond Terrace", zip:"10301", phone:"718-816-0565" },
+  { license:"12563", name:"William Fernandez", business:"American Elect Testing Co", address:"516 Industrial Loop 2nd Fl", zip:"10309", phone:"347-705-0800" },
+  { license:"12073", name:"Scott Fichera", business:"Fichera Electric, Inc", address:"1303 Clove Road", zip:"10301", phone:"718-720-9270" },
+  { license:"11435", name:"Shawn Fleming", business:"Eclipse Electric Corp", address:"5488 Amboy Road", zip:"10312", phone:"347-985-4388" },
+  { license:"11284", name:"Anthony Fumento", business:"Anthony Fumento Inc", address:"104 Port Richmond Ave", zip:"10302", phone:"718-727-8018" },
+  { license:"11276", name:"Gennadiy Gakman", business:"Approved Elec Cont'g Inc", address:"1436 Hylan Boulevard", zip:"10305", phone:"718-232-4785" },
+  { license:"12694", name:"Valery Tsirulnik", business:"Arc Power Elecl Conts Inc", address:"414 Spencer Street", zip:"10314", phone:"347-229-4395" },
+  { license:"12379", name:"Angelo Tzoulis", business:"Freedom Electl & Data Inc", address:"4288 Arthur Kill Road, 2nd Fl", zip:"10309", phone:"718-967-7200" },
+  { license:"10696", name:"Alexander Vdovets", business:"Kew Electric Inc.", address:"1428 Hylan Blvd.", zip:"10305", phone:"718-980-6655" },
+  { license:"10727", name:"Albert Vitale", business:"Laser Lite Elect'l Inc.", address:"40 Gaton Street", zip:"10309", phone:"718-356-8900" },
+  { license:"12853", name:"Frank Vitale", business:"L&L Electrical Contract", address:"40 Gaton Street", zip:"10309", phone:"718-984-2826" },
+  { license:"12999", name:"Joseph Wakie", business:"Wake Electric, Inc", address:"516 Industrial Loop 2nd Floor", zip:"10309", phone:"646-745-7230" },
+];
+
+// ================================================================
+// MOCK 311 DATA GENERATION
+// ================================================================
+const complaintTypes = ["Lamp Out","Flickering","Damaged Pole","Partial Outage","Buzzing Noise","Daytime On","Dim Lamp","Exposed Wiring"];
+const typeWeights = [0.28, 0.18, 0.12, 0.10, 0.08, 0.07, 0.09, 0.08];
+const statuses = ["Open","In Progress","Closed"];
+const priorities = ["High","Medium","Low"];
+const siZips = ["10301","10302","10303","10304","10305","10306","10307","10308","10309","10310","10312","10314"];
+const siStreets = ["Victory Blvd","Hylan Blvd","Richmond Ave","Forest Ave","Amboy Rd","Arthur Kill Rd","Clove Rd","Bay St","Castleton Ave","Jewett Ave","Manor Rd","Todt Hill Rd","Father Capodanno Blvd","Richmond Terrace","Port Richmond Ave","Targee St","New Dorp Ln","Midland Ave","Fingerboard Rd","Bradley Ave","Arden Ave","Drumgoole Rd"];
+
+const descTemplates = {
+  "Lamp Out": [
+    "The street light on {street} has been completely out for {days} days. It's very dark at night and feels unsafe.",
+    "Street lamp not working at all near {addr}. No light whatsoever. Been like this since last {day}.",
+    "Dead street light on {street}. The entire block is pitch black after sunset. Dangerous for pedestrians.",
+    "The lamp post near {addr} stopped working. Complete darkness on the street at night.",
+    "Street light has gone out on {street}. Multiple residents have complained about safety concerns.",
+    "No light coming from the street lamp at {addr}. It's been dead for over a week now."
+  ],
+  "Flickering": [
+    "Street lamp on {street} keeps flickering on and off throughout the night. Very annoying and disorienting.",
+    "The light near {addr} is blinking constantly. It flickers every few seconds making it hard to see.",
+    "Lamp at {street} has been strobing/flickering for {days} days. Gives me a headache when I walk by.",
+    "Intermittent street light near {addr}. Goes on for a minute then off for 30 seconds, repeating all night.",
+    "The street lamp flickers rapidly near {addr}. It's been doing this for about a week."
+  ],
+  "Damaged Pole": [
+    "The lamp pole on {street} is leaning badly after a car hit it. Looks like it could fall over.",
+    "Street light pole near {addr} is cracked at the base. Seems structurally unsafe.",
+    "Damaged light pole on {street} — it's bent at a 45 degree angle. Wires might be exposed.",
+    "A truck knocked into the lamp post at {addr}. The pole is now tilted and the light is hanging.",
+    "The street lamp pole near {addr} has visible rust damage and is leaning toward the sidewalk."
+  ],
+  "Partial Outage": [
+    "Multiple street lamps are out on {street} between {cross1} and {cross2}. About 4-5 lights not working.",
+    "Several lamps on the block near {addr} are all out. The whole stretch is dark.",
+    "3 consecutive street lights on {street} are not functioning. Major safety hazard at night.",
+    "Half the street lights on {street} near {addr} are out. Seems like a circuit issue.",
+    "Block-wide outage of street lamps on {street}. At least 6 lights are completely dark."
+  ],
+  "Buzzing Noise": [
+    "The street lamp near {addr} is making a loud buzzing/humming noise. Can hear it from inside my house.",
+    "Electrical buzzing sound coming from the lamp post on {street}. It's very loud at night.",
+    "Street light at {addr} buzzes loudly. Sounds like an electrical issue. Worried about safety.",
+    "Constant humming noise from the street lamp near {addr}. It's been going on for weeks.",
+    "The lamp on {street} makes a loud crackling and buzzing sound, especially when it rains."
+  ],
+  "Daytime On": [
+    "Street lamp on {street} stays on during the day. It's been on 24/7 for the past {days} days.",
+    "The light near {addr} never turns off. It's burning all day long, wasting electricity.",
+    "Lamp post at {street} is on during broad daylight. Sensor must be broken.",
+    "Street light near {addr} has been on continuously day and night for over a week.",
+    "The photocell on the street lamp at {addr} seems broken — light stays on all day."
+  ],
+  "Dim Lamp": [
+    "The street light on {street} is extremely dim. Barely provides any illumination.",
+    "Lamp near {addr} is very faint. You can barely tell it's on. Not providing adequate light.",
+    "Street lamp at {street} has gotten progressively dimmer over the past month. Almost useless now.",
+    "The light at {addr} is so dim it might as well be off. Needs a bulb replacement.",
+    "Very weak light output from the street lamp on {street}. Can barely see the sidewalk."
+  ],
+  "Exposed Wiring": [
+    "There are exposed wires at the base of the lamp post on {street}. Very dangerous, especially with kids around.",
+    "The panel on the street light near {addr} is open and wires are hanging out. Electrocution hazard!",
+    "Exposed electrical wiring on the lamp pole at {street}. The cover plate is missing.",
+    "Street lamp near {addr} has its wiring exposed after recent construction. Urgent safety concern.",
+    "Wires sticking out from the base of the light pole on {street}. Someone could get shocked."
+  ]
+};
+
+const crossStreets = ["Victory Blvd","Hylan Blvd","Richmond Ave","Forest Ave","Jewett Ave","Manor Rd","Clove Rd","Bay St","Targee St","New Dorp Ln","Bradley Ave"];
+const dayNames = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+
+function weightedRandom(items, weights) {
+  let r = Math.random(), cum = 0;
+  for (let i = 0; i < items.length; i++) { cum += weights[i]; if (r <= cum) return items[i]; }
+  return items[items.length - 1];
+}
+
+function randomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+function generateDescription(type, street, addr) {
+  const templates = descTemplates[type];
+  let desc = templates[Math.floor(Math.random() * templates.length)];
+  desc = desc.replace(/{street}/g, street);
+  desc = desc.replace(/{addr}/g, addr);
+  desc = desc.replace(/{days}/g, Math.floor(Math.random() * 14) + 2);
+  desc = desc.replace(/{day}/g, dayNames[Math.floor(Math.random() * dayNames.length)]);
+  desc = desc.replace(/{cross1}/g, crossStreets[Math.floor(Math.random() * crossStreets.length)]);
+  desc = desc.replace(/{cross2}/g, crossStreets[Math.floor(Math.random() * crossStreets.length)]);
+  return desc;
+}
+
+function generateCalls(n) {
+  const calls = [];
+  for (let i = 0; i < n; i++) {
+    const type = weightedRandom(complaintTypes, typeWeights);
+    const priority = type === "Exposed Wiring" || type === "Damaged Pole" ? (Math.random() < 0.7 ? "High" : "Medium") :
+                     type === "Lamp Out" || type === "Partial Outage" ? (Math.random() < 0.4 ? "High" : (Math.random() < 0.6 ? "Medium" : "Low")) :
+                     (Math.random() < 0.15 ? "High" : (Math.random() < 0.5 ? "Medium" : "Low"));
+    const status = Math.random() < 0.22 ? "Open" : (Math.random() < 0.35 ? "In Progress" : "Closed");
+    const vendor = vendors[Math.floor(Math.random() * vendors.length)];
+    const date = randomDate(new Date(2025, 3, 1), new Date(2026, 3, 14));
+    const resolution = status === "Closed" ? Math.floor(Math.random() * 14) + 1 : null;
+    const streetNum = Math.floor(Math.random() * 900) + 100;
+    const street = siStreets[Math.floor(Math.random() * siStreets.length)];
+    const addr = `${streetNum} ${street}`;
+    const zip = siZips[Math.floor(Math.random() * siZips.length)];
+    const description = generateDescription(type, street, addr);
+    calls.push({
+      id: `SI-${String(100001 + i)}`,
+      date, dateStr: date.toLocaleDateString('en-US'),
+      month: date.getMonth(), year: date.getFullYear(),
+      type, priority, status, description,
+      address: addr, street, zip,
+      vendor: vendor.business, vendorName: vendor.name, vendorZip: vendor.zip,
+      resolution
+    });
   }
+  return calls.sort((a, b) => b.date - a.date);
+}
 
-  // Dashboard Logic and Data Initialization goes here...
+const calls = generateCalls(500);
+
+// ================================================================
+// KEYWORD EXTRACTION & CLASSIFICATION ENGINE
+// ================================================================
+const keywordMap = {
+  "Lamp Out": ["out","dark","dead","not working","no light","pitch black","stopped","gone out","darkness","completely out"],
+  "Flickering": ["flicker","blink","strobe","intermittent","on and off","blinking","strobing","flashing","flickering"],
+  "Damaged Pole": ["leaning","bent","cracked","damaged","tilted","hit","knocked","rust","broken pole","fallen","pole"],
+  "Partial Outage": ["multiple","several","block","consecutive","half","circuit","stretch","block-wide","many lights","outage"],
+  "Buzzing Noise": ["buzz","hum","noise","crackling","humming","buzzing","loud","sound","vibrating"],
+  "Daytime On": ["daytime","day","24/7","never turns off","always on","sensor","photocell","stays on","during the day"],
+  "Dim Lamp": ["dim","faint","weak","barely","low light","progressively","useless","can't see","very dim"],
+  "Exposed Wiring": ["exposed","wires","wiring","hanging","electrocution","shock","panel","open","dangerous wires","sticking out"]
+};
+
+function extractKeywords(text) {
+  const lower = text.toLowerCase();
+  const found = [];
+  for (const [type, keywords] of Object.entries(keywordMap)) {
+    for (const kw of keywords) {
+      if (lower.includes(kw)) found.push({ keyword: kw, type });
+    }
+  }
+  return found;
+}
+
+function classifyText(text) {
+  const lower = text.toLowerCase();
+  const scores = {};
+  for (const [type, keywords] of Object.entries(keywordMap)) {
+    scores[type] = 0;
+    for (const kw of keywords) {
+      if (lower.includes(kw)) scores[type] += 1;
+    }
+  }
+  if (lower.includes("exposed") || lower.includes("shock") || lower.includes("electrocution")) scores["Exposed Wiring"] += 3;
+  if (lower.includes("leaning") || lower.includes("bent") || lower.includes("cracked")) scores["Damaged Pole"] += 3;
+  if (lower.includes("flicker") || lower.includes("blink")) scores["Flickering"] += 2;
+  if (lower.includes("multiple") || lower.includes("several") || lower.includes("block")) scores["Partial Outage"] += 2;
+  if (lower.includes("buzz") || lower.includes("hum") || lower.includes("noise")) scores["Buzzing Noise"] += 2;
+  if (lower.includes("dim") || lower.includes("faint")) scores["Dim Lamp"] += 2;
+  if (lower.includes("daytime") || lower.includes("stays on") || lower.includes("never off")) scores["Daytime On"] += 2;
+  if (lower.includes("out") || lower.includes("dead") || lower.includes("not working") || lower.includes("dark")) scores["Lamp Out"] += 1;
+
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const maxScore = sorted[0][1];
+  if (maxScore === 0) return { type: "Lamp Out", confidence: 0.3, allScores: sorted };
+  const total = sorted.reduce((s, e) => s + e[1], 0);
+  return { type: sorted[0][0], confidence: Math.min(0.98, sorted[0][1] / Math.max(1, total) + 0.2), allScores: sorted };
+}
+
+function determinePriority(type, text) {
+  const lower = text.toLowerCase();
+  const urgentWords = ["dangerous","unsafe","hazard","emergency","urgent","kids","children","elderly","accident","electrocution","shock","fall","dark","pitch black"];
+  let urgencyBoost = 0;
+  for (const w of urgentWords) { if (lower.includes(w)) urgencyBoost += 0.12; }
+  const basePriority = { "Exposed Wiring": 0.9, "Damaged Pole": 0.75, "Partial Outage": 0.7, "Lamp Out": 0.5, "Flickering": 0.35, "Dim Lamp": 0.3, "Buzzing Noise": 0.25, "Daytime On": 0.2 };
+  const score = Math.min(1, (basePriority[type] || 0.4) + urgencyBoost);
+  const priority = score >= 0.7 ? "High" : score >= 0.4 ? "Medium" : "Low";
+  return { priority, urgencyScore: score };
+}
+
+// ================================================================
+// SIMILARITY ENGINE
+// ================================================================
+function complaintFeatureVector(c) {
+  const typeIdx = complaintTypes.indexOf(c.type);
+  const typeVec = complaintTypes.map((_, i) => i === typeIdx ? 1 : 0);
+  const zipIdx = siZips.indexOf(c.zip);
+  const zipVec = siZips.map((_, i) => i === zipIdx ? 1 : 0);
+  const priVec = priorities.map(p => p === c.priority ? 1 : 0);
+  const statusVec = statuses.map(s => s === c.status ? 1 : 0);
+  const monthNorm = c.month / 11;
+  const resNorm = c.resolution ? c.resolution / 14 : 0.5;
+  return [...typeVec, ...zipVec, ...priVec, ...statusVec, monthNorm, resNorm];
+}
+
+function cosineSim(a, b, weights) {
+  let dot = 0, magA = 0, magB = 0;
+  for (let i = 0; i < a.length; i++) {
+    const w = weights ? (weights[i] || 1) : 1;
+    dot += a[i] * b[i] * w; magA += a[i] * a[i] * w; magB += b[i] * b[i] * w;
+  }
+  return magA && magB ? dot / (Math.sqrt(magA) * Math.sqrt(magB)) : 0;
+}
+
+function getWeights(mode) {
+  const w = new Array(28).fill(1);
+  if (mode === "type") { for (let i = 0; i < 8; i++) w[i] = 4; }
+  if (mode === "location") { for (let i = 8; i < 20; i++) w[i] = 4; }
+  if (mode === "time") { w[26] = 5; }
+  return w;
+}
+
+function findSimilar(sourceId, mode, count) {
+  const source = calls.find(c => c.id === sourceId);
+  if (!source) return [];
+  const sourceVec = complaintFeatureVector(source);
+  const weights = getWeights(mode);
+  const sourceKw = new Set(extractKeywords(source.description).map(k => k.keyword));
+  const results = calls.filter(c => c.id !== sourceId).map(c => {
+    const vec = complaintFeatureVector(c);
+    let sim = cosineSim(sourceVec, vec, weights);
+    const cKw = new Set(extractKeywords(c.description).map(k => k.keyword));
+    const overlap = [...sourceKw].filter(k => cKw.has(k)).length;
+    const kwBonus = overlap / Math.max(1, Math.max(sourceKw.size, cKw.size)) * 0.15;
+    sim = Math.min(1, sim + kwBonus);
+    return { ...c, similarity: sim };
+  }).sort((a, b) => b.similarity - a.similarity).slice(0, count);
+  return results;
+}
+
+let currentSourceId = null;
+
+// ================================================================
+// KPIs
+// ================================================================
+document.getElementById('kpi-total').textContent = calls.length;
+document.getElementById('kpi-open').textContent = calls.filter(c => c.status === "Open").length;
+document.getElementById('kpi-progress').textContent = calls.filter(c => c.status === "In Progress").length;
+document.getElementById('kpi-closed').textContent = calls.filter(c => c.status === "Closed").length;
+const closedCalls = calls.filter(c => c.status === "Closed" && c.resolution);
+const avgRes = (closedCalls.reduce((s, c) => s + c.resolution, 0) / closedCalls.length).toFixed(1);
+document.getElementById('kpi-avgres').textContent = avgRes + "d";
+
+// ================================================================
+// OVERVIEW CHARTS
+// ================================================================
+const chartColors = ['#00b4d8','#0096c7','#0077b6','#023e8a','#2ec4b6','#ffb703','#e63946','#8338ec','#ff6b6b','#48bfe3','#56cfe1','#72efdd'];
+
+const typeCounts = complaintTypes.map(t => calls.filter(c => c.type === t).length);
+new Chart(document.getElementById('chartType'), {
+  type: 'doughnut',
+  data: { labels: complaintTypes, datasets: [{ data: typeCounts, backgroundColor: chartColors, borderWidth: 0 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#8899aa', font: { size: 11 } } } } }
+});
+
+const priCounts = priorities.map(p => calls.filter(c => c.priority === p).length);
+new Chart(document.getElementById('chartPriority'), {
+  type: 'pie',
+  data: { labels: priorities, datasets: [{ data: priCounts, backgroundColor: ['#e63946','#ffb703','#2ec4b6'], borderWidth: 0 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#8899aa', font: { size: 11 } } } } }
+});
+
+const months = [];
+for (let m = 3; m < 15; m++) {
+  const yr = m < 12 ? 2025 : 2026;
+  const mo = m % 12;
+  months.push({ label: new Date(yr, mo).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), yr, mo });
+}
+const monthCounts = months.map(m => calls.filter(c => c.date.getMonth() === m.mo && c.date.getFullYear() === m.yr).length);
+new Chart(document.getElementById('chartTrend'), {
+  type: 'line',
+  data: { labels: months.map(m => m.label), datasets: [{ label: 'Complaints', data: monthCounts, borderColor: '#00b4d8', backgroundColor: 'rgba(0,180,216,0.1)', fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#00b4d8' }] },
+  options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#8899aa' }, grid: { color: '#1a2a3a' } }, y: { ticks: { color: '#8899aa' }, grid: { color: '#1a2a3a' } } }, plugins: { legend: { display: false } } }
+});
+
+const zipCounts = siZips.map(z => calls.filter(c => c.zip === z).length);
+new Chart(document.getElementById('chartZip'), {
+  type: 'bar',
+  data: { labels: siZips, datasets: [{ label: 'Complaints', data: zipCounts, backgroundColor: '#00b4d8', borderRadius: 6 }] },
+  options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#8899aa' }, grid: { display: false } }, y: { ticks: { color: '#8899aa' }, grid: { color: '#1a2a3a' } } }, plugins: { legend: { display: false } } }
+});
+
+const vendorCallCounts = vendors.map(v => ({ name: v.business, count: calls.filter(c => c.vendor === v.business).length })).sort((a, b) => b.count - a.count).slice(0, 10);
+new Chart(document.getElementById('chartVendorBar'), {
+  type: 'bar',
+  data: { labels: vendorCallCounts.map(v => v.name), datasets: [{ label: 'Assigned Calls', data: vendorCallCounts.map(v => v.count), backgroundColor: chartColors, borderRadius: 6 }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#8899aa' }, grid: { color: '#1a2a3a' } }, y: { ticks: { color: '#8899aa', font: { size: 10 } }, grid: { display: false } } }, plugins: { legend: { display: false } } }
+});
+
+// ================================================================
+// CLASSIFIER CHARTS
+// ================================================================
+new Chart(document.getElementById('chartClassDist'), {
+  type: 'polarArea',
+  data: { labels: complaintTypes, datasets: [{ data: typeCounts, backgroundColor: chartColors.map(c => c + '99') }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#8899aa', font: { size: 10 } } } }, scales: { r: { ticks: { color: '#8899aa', backdropColor: 'transparent' }, grid: { color: '#223344' } } } }
+});
+
+const priByType = priorities.map(p => complaintTypes.map(t => calls.filter(c => c.type === t && c.priority === p).length));
+new Chart(document.getElementById('chartPriorityType'), {
+  type: 'bar',
+  data: {
+    labels: complaintTypes,
+    datasets: [
+      { label: 'High', data: priByType[0], backgroundColor: '#e63946', borderRadius: 3 },
+      { label: 'Medium', data: priByType[1], backgroundColor: '#ffb703', borderRadius: 3 },
+      { label: 'Low', data: priByType[2], backgroundColor: '#2ec4b6', borderRadius: 3 }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true, ticks: { color: '#8899aa', font: { size: 9 } }, grid: { display: false } }, y: { stacked: true, ticks: { color: '#8899aa' }, grid: { color: '#1a2a3a' } } }, plugins: { legend: { labels: { color: '#8899aa' } } } }
+});
+
+// ================================================================
+// CLASSIFIER LOGIC
+// ================================================================
+const exampleComplaints = [
+  "The street lamp outside 450 Victory Blvd has been completely dead for 5 days. It's pitch black and very dangerous for people walking at night. Kids play in this area.",
+  "There's a loud buzzing and crackling noise coming from the lamp post on Hylan Blvd near the bus stop. You can hear it from 20 feet away. Sounds like an electrical hazard.",
+  "Multiple street lights are out on Richmond Ave between Forest Ave and Jewett Ave. About 6 lamps are completely dark. The whole stretch is unsafe.",
+  "I noticed exposed wires hanging from the base of the street lamp at 200 Port Richmond Ave. The metal panel is missing and you can see the electrical connections. Very dangerous with children walking to school nearby!",
+  "The street light on Amboy Rd keeps flickering on and off every few seconds. It's been doing this for about 2 weeks. Very disorienting when driving at night.",
+  "The lamp post on Todt Hill Rd is leaning at about a 30 degree angle after being hit by a vehicle. It looks like it could fall on someone.",
+  "Street lamp near 300 Bay St stays on during the daytime. It's been burning 24/7 for the past 10 days. The sensor must be broken.",
+  "The street light on Manor Rd is extremely dim. You can barely tell it's on. It provides almost no illumination for the sidewalk."
+];
+
+function loadExample() {
+  const ex = exampleComplaints[Math.floor(Math.random() * exampleComplaints.length)];
+  document.getElementById('clfInput').value = ex;
+}
+
+function runClassifier() {
+  const text = document.getElementById('clfInput').value.trim();
+  if (!text) { alert("Please describe the complaint first!"); return; }
+
+  const classification = classifyText(text);
+  const { priority, urgencyScore } = determinePriority(classification.type, text);
+  const keywords = extractKeywords(text);
+  const zip = document.getElementById('clf-zip').value || siZips[Math.floor(Math.random() * siZips.length)];
+
+  const zipVendors = vendors.filter(v => v.zip === zip);
+  const recommended = zipVendors.length > 0 ? zipVendors : vendors.slice(0, 3);
+  const similarCalls = calls.filter(c => c.type === classification.type).slice(0, 5);
+
+  const priClass = priority === "High" ? "priority-high" : priority === "Medium" ? "priority-medium" : "priority-low";
+  const priFill = priority === "High" ? "fill-high" : priority === "Medium" ? "fill-med" : "fill-low";
+
+  let html = `<div class="result-box">
+    <h4>📋 Classification Result</h4>
+    <div class="result-row"><span class="result-label">Detected Type</span><span class="result-value"><span class="tag tag-type">${classification.type}</span></span></div>
+    <div class="result-row"><span class="result-label">Confidence</span><span class="result-value">${(classification.confidence * 100).toFixed(0)}% <span class="confidence-bar"><span class="confidence-fill fill-blue" style="width:${classification.confidence * 100}%"></span></span></span></div>
+    <div class="result-row"><span class="result-label">Priority</span><span class="result-value ${priClass}">${priority}</span></div>
+    <div class="result-row"><span class="result-label">Urgency Score</span><span class="result-value">${(urgencyScore * 100).toFixed(0)}% <span class="confidence-bar"><span class="confidence-fill ${priFill}" style="width:${urgencyScore * 100}%"></span></span></span></div>
+    <div class="result-row"><span class="result-label">Assigned Zip</span><span class="result-value">${zip}</span></div>
+    <div class="result-row"><span class="result-label">Keywords Detected</span><span class="result-value">${keywords.length > 0 ? keywords.map(k => `<span class="tag tag-keyword">${k.keyword}</span>`).join('') : '<span style="color:#556677">None</span>'}</span></div>
+    <h4 style="margin-top:20px;">🏆 All Type Scores</h4>`;
+  classification.allScores.forEach(([type, score]) => {
+    const pct = Math.min(100, score / Math.max(1, classification.allScores[0][1]) * 100);
+    html += `<div class="result-row"><span class="result-label">${type}</span><span class="result-value">${score} <span class="confidence-bar"><span class="confidence-fill fill-blue" style="width:${pct}%"></span></span></span></div>`;
+  });
+  html += `<h4 style="margin-top:20px;">🔧 Recommended Vendors (Zip: ${zip})</h4>`;
+  recommended.slice(0, 3).forEach((v, i) => {
+    const vCalls = calls.filter(c => c.vendor === v.business);
+    const vClosed = vCalls.filter(c => c.resolution);
+    const vAvg = vClosed.length > 0 ? (vClosed.reduce((s, c) => s + c.resolution, 0) / vClosed.length).toFixed(1) : "N/A";
+    html += `<div class="vendor-rec"><div><div class="vname">${i + 1}. ${v.business}</div><div class="vdetail">${v.name} • ${v.address}, SI ${v.zip} • ${v.phone}</div></div><div style="text-align:right"><div style="color:#00b4d8;font-weight:700">${vCalls.length} calls</div><div class="vdetail">Avg: ${vAvg} days</div></div></div>`;
+  });
+  html += `<h4 style="margin-top:20px;">📎 Similar Past Complaints</h4>`;
+  similarCalls.forEach(c => {
+    const sClass = c.status === "Open" ? "status-open" : c.status === "In Progress" ? "status-progress" : "status-closed";
+    html += `<div class="sim-complaint-card" onclick="goToSimilarity('${c.id}')"><div style="display:flex;justify-content:space-between;align-items:center"><strong>${c.id}</strong><span class="status-badge ${sClass}">${c.status}</span></div><div class="sim-desc">${c.description.substring(0, 120)}...</div><div class="sim-meta">${c.dateStr} • ${c.address}, ${c.zip} • ${c.priority} priority • ${c.vendor}</div></div>`;
+  });
+  html += `</div>`;
+  document.getElementById('classifier-result').innerHTML = html;
+}
+
+function goToSimilarity(id) {
+  currentSourceId = id;
+  document.getElementById('simSearchInput').value = id;
+  switchTab('similarity', document.querySelectorAll('.tab')[2]);
+  searchComplaint();
+}
+
+// ================================================================
+// SIMILARITY SEARCH UI
+// ================================================================
+let simDistChart = null;
+let simZipChart = null;
+
+function searchComplaint() {
+  const query = document.getElementById('simSearchInput').value.trim();
+  let source = calls.find(c => c.id === query);
+  if (!source && query) {
+    const lower = query.toLowerCase();
+    source = calls.find(c => c.description.toLowerCase().includes(lower) || c.address.toLowerCase().includes(lower));
+  }
+  if (!source) {
+    document.getElementById('simSourceCard').innerHTML = `<div class="result-box" style="border-color:#e63946"><h4 style="color:#e63946">❌ No complaint found</h4><p>Try a valid ID (e.g., SI-100042) or keywords from a complaint description.</p></div>`;
+    document.getElementById('simResults').innerHTML = '';
+    return;
+  }
+  currentSourceId = source.id;
+  renderSimilarityResults(source);
+}
+
+function pickRandom() {
+  const source = calls[Math.floor(Math.random() * calls.length)];
+  currentSourceId = source.id;
+  document.getElementById('simSearchInput').value = source.id;
+  renderSimilarityResults(source);
+}
+
+function rerunSimilarity() {
+  if (!currentSourceId) return;
+  const source = calls.find(c => c.id === currentSourceId);
+  if (source) renderSimilarityResults(source);
+}
+
+function renderSimilarityResults(source) {
+  const mode = document.getElementById('simWeightMode').value;
+  const count = parseInt(document.getElementById('simCount').value);
+  const similar = findSimilar(source.id, mode, count);
+
+  const sClass = source.status === "Open" ? "status-open" : source.status === "In Progress" ? "status-progress" : "status-closed";
+  const sPri = source.priority === "High" ? "priority-high" : source.priority === "Medium" ? "priority-medium" : "priority-low";
+  document.getElementById('simSourceCard').innerHTML = `
+    <div class="result-box" style="margin-bottom:20px;">
+      <h4>🎯 Source Complaint</h4>
+      <div class="result-row"><span class="result-label">ID</span><span class="result-value">${source.id}</span></div>
+      <div class="result-row"><span class="result-label">Date</span><span class="result-value">${source.dateStr}</span></div>
+      <div class="result-row"><span class="result-label">Type</span><span class="result-value"><span class="tag tag-type">${source.type}</span></span></div>
+      <div class="result-row"><span class="result-label">Priority</span><span class="result-value ${sPri}">${source.priority}</span></div>
+      <div class="result-row"><span class="result-label">Status</span><span class="result-value"><span class="status-badge ${sClass}">${source.status}</span></span></div>
+      <div class="result-row"><span class="result-label">Location</span><span class="result-value">${source.address}, SI ${source.zip}</span></div>
+      <div class="result-row"><span class="result-label">Vendor</span><span class="result-value">${source.vendor}</span></div>
+      <div class="result-row"><span class="result-label">Description</span><span class="result-value" style="max-width:60%;text-align:right">${source.description}</span></div>
+    </div>`;
+
+  let html = `<h4 style="color:#00b4d8;margin-bottom:16px;">🔗 Top ${similar.length} Similar Complaints</h4>`;
+  similar.forEach((c, i) => {
+    const cClass = c.status === "Open" ? "status-open" : c.status === "In Progress" ? "status-progress" : "status-closed";
+    const cPri = c.priority === "High" ? "priority-high" : c.priority === "Medium" ? "priority-medium" : "priority-low";
+    const simPct = (c.similarity * 100).toFixed(1);
+    const fillClass = c.similarity > 0.8 ? "fill-blue" : c.similarity > 0.5 ? "fill-med" : "fill-low";
+    html += `<div class="sim-complaint-card" onclick="document.getElementById('simSearchInput').value='${c.id}';searchComplaint();">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><strong>${c.id}</strong> <span class="tag tag-type">${c.type}</span> <span class="${cPri}" style="font-size:0.78rem">${c.priority}</span></div>
+        <div><span class="sim-score">${simPct}%</span> <span class="confidence-bar"><span class="confidence-fill ${fillClass}" style="width:${simPct}%"></span></span></div>
+      </div>
+      <div class="sim-desc">${c.description.substring(0, 150)}...</div>
+      <div class="sim-meta">${c.dateStr} • ${c.address}, ${c.zip} • <span class="status-badge ${cClass}">${c.status}</span> • ${c.vendor} ${c.resolution ? '• Resolved in ' + c.resolution + 'd' : ''}</div>
+    </div>`;
+  });
+  document.getElementById('simResults').innerHTML = html;
+
+  // Similarity distribution chart
+  const simBuckets = [0,0,0,0,0];
+  similar.forEach(c => { const idx = Math.min(4, Math.floor(c.similarity * 5)); simBuckets[idx]++; });
+  if (simDistChart) simDistChart.destroy();
+  simDistChart = new Chart(document.getElementById('chartSimDist'), {
+    type: 'bar',
+    data: { labels: ['0-20%','20-40%','40-60%','60-80%','80-100%'], datasets: [{ label: 'Count', data: simBuckets, backgroundColor: ['#e63946','#ffb703','#0077b6','#0096c7','#00b4d8'], borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#8899aa' }, grid: { display: false } }, y: { ticks: { color: '#8899aa' }, grid: { color: '#1a2a3a' } } }, plugins: { legend: { display: false } } }
+  });
+
+  // Similar by zip chart
+  const simZipCounts = siZips.map(z => similar.filter(c => c.zip === z).length);
+  if (simZipChart) simZipChart.destroy();
+  simZipChart = new Chart(document.getElementById('chartSimZip'), {
+    type: 'bar',
+    data: { labels: siZips, datasets: [{ label: 'Similar Complaints', data: simZipCounts, backgroundColor: '#00b4d8', borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#8899aa' }, grid: { display: false } }, y: { ticks: { color: '#8899aa' }, grid: { color: '#1a2a3a' } } }, plugins: { legend: { labels: { color: '#8899aa' } } } }
+  });
+}
+
+// ================================================================
+// VENDOR TABLE
+// ================================================================
+const vendorBody = document.getElementById('vendorTableBody');
+vendors.forEach(v => {
+  const vCalls = calls.filter(c => c.vendor === v.business);
+  const closed = vCalls.filter(c => c.resolution);
+  const avg = closed.length > 0 ? (closed.reduce((s, c) => s + c.resolution, 0) / closed.length).toFixed(1) + "d" : "—";
+  const topType = complaintTypes.reduce((best, t) => {
+    const cnt = vCalls.filter(c => c.type === t).length;
+    return cnt > best.count ? { type: t, count: cnt } : best;
+  }, { type: "—", count: 0 });
+  vendorBody.innerHTML += `<tr><td>${v.license}</td><td>${v.name}</td><td>${v.business}</td><td>${v.address}</td><td>${v.zip}</td><td>${v.phone}</td><td>${vCalls.length}</td><td>${avg}</td><td><span class="tag tag-type">${topType.type}</span></td></tr>`;
+});
+
+// ================================================================
+// ALL CALLS TABLE
+// ================================================================
+const filterTypeSelect = document.getElementById('filterType');
+complaintTypes.forEach(t => { const opt = document.createElement('option'); opt.value = t; opt.textContent = t; filterTypeSelect.appendChild(opt); });
+const filterVendorSelect = document.getElementById('filterVendor');
+vendors.forEach(v => { const opt = document.createElement('option'); opt.value = v.business; opt.textContent = v.business; filterVendorSelect.appendChild(opt); });
+
+function renderCalls(data) {
+  const tbody = document.getElementById('callsTableBody');
+  tbody.innerHTML = '';
+  document.getElementById('callCount').textContent = data.length;
+  data.forEach(c => {
+    const statusClass = c.status === "Open" ? "status-open" : c.status === "In Progress" ? "status-progress" : "status-closed";
+    const priClass = c.priority === "High" ? "priority-high" : c.priority === "Medium" ? "priority-medium" : "priority-low";
+    tbody.innerHTML += `<tr>
+      <td>${c.id}</td><td>${c.dateStr}</td><td><span class="tag tag-type">${c.type}</span></td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${c.description}">${c.description.substring(0, 60)}...</td>
+      <td>${c.address}</td><td>${c.zip}</td>
+      <td class="${priClass}">${c.priority}</td><td><span class="status-badge ${statusClass}">${c.status}</span></td>
+      <td style="font-size:0.78rem">${c.vendor}</td><td>${c.resolution || '—'}</td>
+      <td><button class="btn btn-secondary" style="padding:4px 10px;font-size:0.72rem" onclick="goToSimilarity('${c.id}')">Find Similar</button></td></tr>`;
+  });
+}
+
+function filterCalls() {
+  let filtered = [...calls];
+  const s = document.getElementById('filterStatus').value;
+  const p = document.getElementById('filterPriority').value;
+  const t = document.getElementById('filterType').value;
+  const v = document.getElementById('filterVendor').value;
+  if (s !== 'all') filtered = filtered.filter(c => c.status === s);
+  if (p !== 'all') filtered = filtered.filter(c => c.priority === p);
+  if (t !== 'all') filtered = filtered.filter(c => c.type === t);
+  if (v !== 'all') filtered = filtered.filter(c => c.vendor === v);
+  renderCalls(filtered);
+}
+
+function resetFilters() {
+  document.getElementById('filterStatus').value = 'all';
+  document.getElementById('filterPriority').value = 'all';
+  document.getElementById('filterType').value = 'all';
+  document.getElementById('filterVendor').value = 'all';
+  renderCalls(calls);
+}
+
+renderCalls(calls);
+
+// ================================================================
+// TAB SWITCHING
+// ================================================================
+function switchTab(tab, el) {
+  document.querySelectorAll('.dashboard').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (el) el.classList.add('active');
+}
 </script>
-
 </body>
 </html>
