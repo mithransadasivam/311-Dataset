@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sources &amp; Methodology &middot; NYC Street Lights</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#0f1923;color:#e0e0e0;min-height:100vh;line-height:1.65;}
+.header{background:linear-gradient(135deg,#1a2a3a 0%,#0d1b2a 100%);padding:22px 40px;border-bottom:3px solid #00b4d8;display:flex;align-items:center;justify-content:space-between;}
+.header h1{font-size:1.4rem;color:#00b4d8;}
+.header .sub{font-size:0.78rem;color:#8899aa;margin-top:4px;}
+.header a.back{color:#8899aa;text-decoration:none;font-size:0.85rem;padding:8px 16px;border:1px solid #334455;border-radius:8px;transition:all .2s;}
+.header a.back:hover{border-color:#00b4d8;color:#00b4d8;}
+.page{max-width:920px;margin:0 auto;padding:36px 28px 80px;}
+.page h2{color:#00b4d8;font-size:1.35rem;margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid #223344;}
+.page h2:first-child{margin-top:0;}
+.page h3{color:#e0e0e0;font-size:1rem;margin:22px 0 10px;font-weight:600;}
+.page p{color:#c8d8e8;margin-bottom:12px;font-size:0.92rem;}
+.page strong{color:#ffffff;}
+.page em{color:#a3b3c2;}
+.page ul{margin:10px 0 16px 22px;color:#c8d8e8;font-size:0.9rem;}
+.page ul li{margin-bottom:8px;}
+.page a{color:#00b4d8;text-decoration:none;}
+.page a:hover{text-decoration:underline;}
+.page table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:0.88rem;}
+.page th,.page td{padding:10px 14px;border:1px solid #223344;text-align:left;}
+.page th{background:#1a2a3a;color:#00b4d8;font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:.04em;}
+.page td{background:#0d1b2a;color:#c8d8e8;}
+.page tr:nth-child(even) td{background:#11202e;}
+.page code,.page pre{font-family:'Consolas','Monaco',monospace;background:#0a131b;color:#2ec4b6;border:1px solid #223344;border-radius:6px;}
+.page code{padding:2px 6px;font-size:0.85rem;}
+.page pre{padding:14px 18px;margin:14px 0 20px;overflow-x:auto;font-size:0.82rem;line-height:1.55;}
+.disclaimer-box{background:rgba(230,57,70,.07);border:1px solid rgba(230,57,70,.3);border-radius:10px;padding:16px 20px;margin:18px 0;color:#ffd0d5;font-size:0.88rem;}
+.disclaimer-box strong{color:#ff9aa2;}
+.tag{display:inline-block;background:#223344;color:#8899aa;padding:2px 10px;border-radius:12px;font-size:0.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-left:8px;vertical-align:middle;}
+.tag.verified{background:rgba(46,196,182,.15);color:#2ec4b6;}
+.tag.estimate{background:rgba(255,183,3,.15);color:#ffb703;}
+.footer{text-align:center;color:#556677;font-size:0.75rem;margin-top:50px;padding-top:22px;border-top:1px solid #223344;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Sources &amp; Methodology</h1>
+    <div class="sub">Full data provenance for the About page statistics</div>
+  </div>
+  <a class="back" href="/">&larr; Back to dashboard</a>
+</div>
+
+<div class="page">
+
+<h2>Summary</h2>
+<p>Every statistic displayed on the <a href="/">About page</a> is sourced from public data and is either (a) a verified fact pulled directly from NYC OpenData or published records, or (b) an estimate clearly derived from market-rate references. This page lists every source, the methodology behind each figure, and what we explicitly do <em>not</em> claim.</p>
+
+<h2>1. Complaint Volume &mdash; 2024 <span class="tag verified">Verified</span></h2>
+
+<table>
+  <thead><tr><th>Borough</th><th>2024 Street Light Complaints</th></tr></thead>
+  <tbody>
+    <tr><td>Brooklyn</td><td>8,639</td></tr>
+    <tr><td>Queens</td><td>8,571</td></tr>
+    <tr><td>Bronx</td><td>6,184</td></tr>
+    <tr><td>Manhattan</td><td>4,962</td></tr>
+    <tr><td>Staten Island</td><td>2,318</td></tr>
+    <tr><td>Unspecified</td><td>207</td></tr>
+    <tr><td><strong>NYC Total</strong></td><td><strong>30,881</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Source:</strong> <a href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9" target="_blank" rel="noopener">NYC OpenData &mdash; 311 Service Requests from 2010 to Present</a> (dataset <code>erm2-nwe9</code>), maintained by NYC 311 and updated daily.</p>
+
+<p><strong>Methodology:</strong> live Socrata SoQL query:</p>
+<pre>SELECT borough, count(*)
+WHERE complaint_type = 'Street Light Condition'
+  AND created_date BETWEEN '2024-01-01T00:00:00' AND '2024-12-31T23:59:59'
+GROUP BY borough</pre>
+
+<h2>2. Resolution-Speed Percentages &mdash; 2024 <span class="tag verified">Verified</span></h2>
+
+<table>
+  <thead><tr><th>Borough</th><th>Closed &le; 7 days</th><th>Closed &le; 30 days</th><th>Unresolved at 30d</th></tr></thead>
+  <tbody>
+    <tr><td>Brooklyn</td><td>63.3%</td><td>80.4%</td><td>19.6%</td></tr>
+    <tr><td>Staten Island</td><td>47.1%</td><td>80.4%</td><td>19.6%</td></tr>
+    <tr><td>Bronx</td><td>56.9%</td><td>78.3%</td><td>21.7%</td></tr>
+    <tr><td>Queens</td><td>53.8%</td><td>76.3%</td><td>23.7%</td></tr>
+    <tr><td>Manhattan</td><td>61.3%</td><td>67.4%</td><td><strong>32.6%</strong></td></tr>
+    <tr><td><strong>Citywide</strong></td><td><strong>57.7%</strong></td><td><strong>76.7%</strong></td><td><strong>23.3%</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Source:</strong> same dataset as &sect;1. Three live Socrata SoQL queries against <code>data.cityofnewyork.us/resource/erm2-nwe9.json</code>:</p>
+<pre>-- Denominator: total 2024 complaints by borough
+SELECT borough, count(*)
+WHERE complaint_type = 'Street Light Condition'
+  AND created_date BETWEEN '2024-01-01T00:00:00' AND '2024-12-31T23:59:59'
+GROUP BY borough
+
+-- Numerator: closed within 30 days
+SELECT borough, count(*)
+WHERE complaint_type = 'Street Light Condition'
+  AND status = 'Closed'
+  AND created_date BETWEEN '2024-01-01T00:00:00' AND '2024-12-31T23:59:59'
+  AND closed_date IS NOT NULL
+  AND date_diff_d(closed_date, created_date) &lt;= 30
+GROUP BY borough
+
+-- Same with `&lt;= 7` for the rapid-response metric.</pre>
+
+<p><strong>Unresolved at 30d</strong> = 1 &minus; (closed_within_30d / total_filed). Includes tickets still Open, Pending, or Assigned at query time, plus tickets that eventually closed but took longer than 30 days.</p>
+
+<p><strong>Noteworthy finding:</strong> Manhattan has the <strong>second-fastest same-week response</strong> (61.3% closed within 7 days) yet the <strong>worst 30-day rate</strong> (67.4%). Its problem isn't first response &mdash; it's the long tail of tickets that slip into multi-month backlogs.</p>
+
+<h2>3. Infrastructure Scale <span class="tag verified">Verified</span></h2>
+<ul>
+  <li><strong>NYC DOT maintains ~250,000 streetlamps citywide.</strong> Source: <a href="https://www.amny.com/news/led-streetlight-conversion-in-nyc-more-than-70-1-14280026/" target="_blank" rel="noopener">amNY &mdash; LED streetlight conversion in NYC more than 70%</a>; cross-referenced in <a href="https://en.wikipedia.org/wiki/New_York_City_Department_of_Transportation" target="_blank" rel="noopener">Wikipedia &mdash; NYC DOT</a>.</li>
+  <li><strong>4-hour emergency-response requirement for DOT streetlight contractors.</strong> Source: <a href="https://www.nyc.gov/html/dot/html/infrastructure/streetlights.shtml" target="_blank" rel="noopener">NYC DOT &mdash; Streetlights</a>.</li>
+  <li><strong>All repairs must be performed by a licensed NYC electrical contractor.</strong> Sources: NYC DOT Streetlights page; <a href="https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCrules/0-0-0-62948" target="_blank" rel="noopener">NYC Rules &sect; 2-20 Street Light and Power</a>.</li>
+</ul>
+
+<h2>4. Per-Repair Cost Range <span class="tag estimate">Estimate</span></h2>
+
+<p>These figures are U.S. market rates for streetlight service calls and electrical labor. They are <strong>not</strong> NYC DOT contract rates, which are not publicly disclosed.</p>
+
+<table>
+  <thead><tr><th>Component</th><th>Range</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td>NYC licensed electrician labor</td><td>$50&ndash;$200 / hr</td><td><a href="https://www.homeyou.com/ny/electrician-new-york-costs" target="_blank" rel="noopener">Homeyou</a></td></tr>
+    <tr><td>Bucket truck / aerial lift</td><td>$60&ndash;$150 / hr ($1,500&ndash;$2,000 / day)</td><td><a href="https://www.lightwaytraffic.com/how-much-does-a-street-light-cost/" target="_blank" rel="noopener">Lightwaytraffic</a>, industry aggregators</td></tr>
+    <tr><td>Simple fixture / bulb repair (non-NYC baseline)</td><td>$50&ndash;$120 total</td><td><a href="https://www.ecosmartinc.com/how-much-does-a-street-light-cost/" target="_blank" rel="noopener">Ecosmart</a></td></tr>
+    <tr><td>Full fixture or pole replacement</td><td>$1,000+</td><td>Same as above</td></tr>
+    <tr><td>Annualized per-light maintenance (Los Angeles)</td><td>~$200 / light / year</td><td><a href="https://lalights.lacity.org/residents/cost_of_svc_and_stlighting_assessments.html" target="_blank" rel="noopener">City of LA</a></td></tr>
+  </tbody>
+</table>
+
+<p><strong>NYC-adjusted service-call range used on this site:</strong> <code>$200 &ndash; $500 per completed complaint</code>.</p>
+<p><strong>Rationale:</strong> the non-NYC floor of $50&ndash;$120 per repair is unrealistic in a union-heavy, high-cost-of-living market. We shift the floor to $200, anchor the midpoint at $350, and cap the ceiling at $500 &mdash; still well below the $1,000+ full-replacement benchmark. The range is deliberately conservative.</p>
+
+<h2>5. Revenue Opportunity <span class="tag estimate">Estimate</span></h2>
+
+<table>
+  <thead><tr><th>Borough</th><th>Low ($200/ea)</th><th>Mid ($350/ea)</th><th>High ($500/ea)</th></tr></thead>
+  <tbody>
+    <tr><td>Brooklyn</td><td>$1.73M</td><td>$3.02M</td><td>$4.32M</td></tr>
+    <tr><td>Queens</td><td>$1.71M</td><td>$3.00M</td><td>$4.29M</td></tr>
+    <tr><td>Bronx</td><td>$1.24M</td><td>$2.16M</td><td>$3.09M</td></tr>
+    <tr><td>Manhattan</td><td>$0.99M</td><td>$1.74M</td><td>$2.48M</td></tr>
+    <tr><td>Staten Island</td><td>$0.46M</td><td>$0.81M</td><td>$1.16M</td></tr>
+    <tr><td><strong>NYC Total</strong></td><td><strong>$6.18M</strong></td><td><strong>$10.81M</strong></td><td><strong>$15.44M</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Methodology:</strong> <code>annual_revenue_borough = complaints_2024_borough &times; rate_per_repair</code>, for each of the three rate scenarios above.</p>
+
+<div class="disclaimer-box">
+<strong>Important disclaimer.</strong> Revenue estimates are derived from published NYC electrical service-call market rates and 2024 311 complaint volumes. They are <strong>not</strong> NYC DOT contract data and do not represent actual payments made to any current contractor.
+</div>
+
+<h3>What we do NOT claim</h3>
+<ul>
+  <li>These numbers are not NYC DOT's actual spend on street-light maintenance.</li>
+  <li>They are not promised revenue to any specific vendor.</li>
+  <li>They do not account for the share of current spend captured by prime contractors (e.g. Welsbach Electric Corp. historically), subcontracting arrangements, or non-repair costs like materials markup and administrative overhead.</li>
+  <li>Actual vendor revenue would depend on contract structure, volume awarded, and competitive bidding.</li>
+</ul>
+
+<h2>6. Data Freshness &amp; Update Cadence</h2>
+<ul>
+  <li><strong>Live 311 feed (Socrata):</strong> browser-direct query executed on every complaint submission. Updated daily by NYC 311.</li>
+  <li><strong>About-page statistics:</strong> pulled directly from NYC OpenData <code>erm2-nwe9</code> for calendar year 2024.</li>
+  <li><strong>Baked historical sample:</strong> 10,000 records, 2018&ndash;2019 snapshot. Powers the "similar past complaints" ranking on the results screen, not the About page.</li>
+  <li><strong>Vendor directory:</strong> NYC DOB master electrician license roster, filtered to exclude non-contractor institutions (universities, hospitals, city agencies). 1,853 active licensed vendors.</li>
+</ul>
+
+<h2>7. Complete Source List</h2>
+<ul>
+  <li><a href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9" target="_blank" rel="noopener">NYC OpenData &mdash; 311 Service Requests from 2010 to Present (erm2-nwe9)</a></li>
+  <li><a href="https://data.cityofnewyork.us/Transportation/DOT-Street-Lights-and-Traffic-Signals-311-Service-/jwvp-gyiq" target="_blank" rel="noopener">NYC OpenData &mdash; DOT Street Lights and Traffic Signals (311 Service Requests)</a></li>
+  <li><a href="https://www.nyc.gov/html/dot/html/infrastructure/streetlights.shtml" target="_blank" rel="noopener">NYC DOT &mdash; Streetlights</a></li>
+  <li><a href="https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCrules/0-0-0-62948" target="_blank" rel="noopener">NYC Rules &sect; 2-20 Street Light and Power</a></li>
+  <li><a href="https://www.dot.ny.gov/main/business-center/designbuildproject55/repository/D900055%20NYCDOT%20Street%20Lighting%20Specifications%20-%2020220519.pdf" target="_blank" rel="noopener">NYC DOT Street Lighting Specifications PDF (NYSDOT mirror)</a></li>
+  <li><a href="https://www.amny.com/news/led-streetlight-conversion-in-nyc-more-than-70-1-14280026/" target="_blank" rel="noopener">amNY &mdash; LED streetlight conversion in NYC more than 70%</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/New_York_City_Department_of_Transportation" target="_blank" rel="noopener">Wikipedia &mdash; New York City Department of Transportation</a></li>
+  <li><a href="https://www.homeyou.com/ny/electrician-new-york-costs" target="_blank" rel="noopener">Homeyou &mdash; Electrician costs in New York, NY</a></li>
+  <li><a href="https://www.ecosmartinc.com/how-much-does-a-street-light-cost/" target="_blank" rel="noopener">Ecosmart &mdash; How much does a street light cost?</a></li>
+  <li><a href="https://www.lightwaytraffic.com/how-much-does-a-street-light-cost/" target="_blank" rel="noopener">Lightwaytraffic &mdash; How much does a street light cost?</a></li>
+  <li><a href="https://lalights.lacity.org/residents/cost_of_svc_and_stlighting_assessments.html" target="_blank" rel="noopener">LA Lights &mdash; Cost of Service and Street Light Assessment</a></li>
+</ul>
+
+<h2>8. How to Audit or Update These Numbers</h2>
+<ol style="margin-left:22px;color:#c8d8e8;font-size:0.9rem;">
+  <li style="margin-bottom:8px;"><strong>To re-pull 2024 volume:</strong> run the Socrata SoQL queries in &sect;1 and &sect;2 against <code>erm2-nwe9</code>. No API key required for low volume.</li>
+  <li style="margin-bottom:8px;"><strong>To refine the revenue estimate:</strong> if NYC DOT publishes per-unit contract rates (e.g. via a FOIL response), replace the <code>$200&ndash;$500</code> range and refresh the Napkin graphic.</li>
+  <li style="margin-bottom:8px;"><strong>To refresh the graphics:</strong> regenerate at <a href="https://napkin.ai" target="_blank" rel="noopener">napkin.ai</a> using the brief in <code>docs/NAPKIN_BRIEF.md</code>, export as SVG, and drop the files into <code>public/img/about/</code>.</li>
+</ol>
+
+<div class="footer">
+  NYC Street Lights &middot; <a href="/" style="color:#00b4d8;text-decoration:none;">Return to dashboard</a>
+</div>
+
+</div>
+</body>
+</html>
